@@ -18,18 +18,20 @@ export function SocialLinks({ className = '' }: { className?: string }) {
           aria-label={link.label + ' (откроется в новой вкладке)'}
           title={link.title}
         >
-          <svg
-            width={20}
-            height={20}
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            aria-hidden="true"
-            focusable="false"
-          >
-            {socialIconPaths[link.icon].map((d, index) => (
-              <path d={d} key={index} />
-            ))}
-          </svg>
+          <span className="social-link-icon">
+            <svg
+              width={16}
+              height={16}
+              viewBox="0 0 16 16"
+              fill="currentColor"
+              aria-hidden="true"
+              focusable="false"
+            >
+              {socialIconPaths[link.icon].map((d, index) => (
+                <path d={d} key={index} />
+              ))}
+            </svg>
+          </span>
         </a>
       ))}
     </div>

@@ -2,7 +2,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 10px;
+  gap: 4px;
 }
 .social-link {
   display: inline-flex;
@@ -10,6 +10,15 @@
   justify-content: center;
   width: 44px;
   height: 44px;
+  border-radius: 50%;
+  transition: transform 180ms ease;
+}
+.social-link-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
   border: 1px solid var(--primary);
   border-radius: 50%;
   color: #fff;
@@ -19,9 +28,11 @@
     color 180ms ease,
     transform 180ms ease;
 }
-.social-link:hover {
+.social-link:hover .social-link-icon {
   color: var(--primary);
   background: #fff;
+}
+.social-link:hover {
   transform: translateY(-2px);
 }
 .social-link:active {

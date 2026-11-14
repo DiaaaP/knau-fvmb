@@ -15,6 +15,7 @@ import '@fontsource/manrope/latin-700.css'
 import './styles/tokens.css'
 import './styles/global.css'
 import './styles/adjustments.css'
+import './styles/motion.css'
 import App from './app/App'
 
 createRoot(document.getElementById('root')!).render(

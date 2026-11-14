@@ -1,0 +1,232 @@
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--primary);
+  border-radius: 50%;
+  color: #fff;
+  background: var(--primary);
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+.social-link:hover {
+  color: var(--primary);
+  background: #fff;
+  transform: translateY(-2px);
+}
+.social-link:active {
+  transform: translateY(0);
+}
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.mobile-social-bar {
+  display: none;
+}
+.mobile-menu-foot .social-links {
+  margin-bottom: 20px;
+}
+.mobile-menu-foot .social-links a {
+  min-height: 44px;
+}
+
+.route-content {
+  animation: page-enter 240ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.dropdown-panel {
+  transform-origin: top;
+  animation: dropdown-enter 160ms ease-out both;
+}
+@keyframes dropdown-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.mobile-dialog[open] {
+  animation: drawer-enter 220ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes drawer-enter {
+  from {
+    opacity: 0.5;
+    transform: translateX(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.mobile-dialog[open]::backdrop,
+.photo-dialog[open]::backdrop {
+  animation: backdrop-enter 180ms ease-out both;
+}
+@keyframes backdrop-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.photo-dialog[open] {
+  animation: photo-enter 180ms ease-out both;
+}
+@keyframes photo-enter {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.button,
+.icon-button,
+.menu-opener {
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+.button:hover {
+  transform: translateY(-1px);
+}
+.button:active {
+  transform: translateY(0);
+}
+.arrow-link svg,
+.text-link svg {
+  transition: transform 180ms ease;
+}
+.arrow-link:hover svg,
+.text-link:hover svg {
+  transform: translateX(3px);
+}
+.faculty-link,
+.department-directory-row {
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+.faculty-link:hover,
+.department-directory-row:hover {
+  border-color: #92aac7;
+}
+.staff-photo-gallery button {
+  transition:
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+.staff-photo-gallery button:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+.mobile-about .icon-button svg {
+  transition: transform 180ms ease;
+}
+.source-accordions details[open] > p {
+  animation: dropdown-enter 160ms ease-out both;
+}
+
+.desktop-nav nav > a,
+.nav-about {
+  position: relative;
+  border-bottom-color: transparent;
+}
+.desktop-nav nav > a.active,
+.nav-about.active {
+  border-bottom-color: transparent;
+}
+.desktop-nav nav > a::after,
+.nav-about::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 180ms ease;
+  pointer-events: none;
+}
+.desktop-nav nav > a:hover::after,
+.desktop-nav nav > a.active::after,
+.nav-about:hover::after,
+.nav-about.active::after {
+  transform: scaleX(1);
+}
+
+@media (max-width: 1023px) {
+  .desktop-socials {
+    display: none;
+  }
+  .header-actions {
+    gap: 0;
+  }
+  .mobile-social-bar {
+    display: block;
+    border-top: 1px solid var(--border);
+  }
+  .mobile-social-bar > .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding-top: 9px;
+    padding-bottom: 9px;
+  }
+  .social-bar-label {
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.5;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  .social-link:hover,
+  .social-link:active,
+  .button:hover,
+  .button:active,
+  .arrow-link:hover svg,
+  .text-link:hover svg,
+  .staff-photo-gallery button:hover {
+    transform: none;
+  }
+}

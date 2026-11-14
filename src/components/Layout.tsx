@@ -14,6 +14,7 @@ import {
 } from '../content/departments'
 import { Brand } from './ui'
 import { DesktopNav, MobileNav } from './Navigation'
+import { SocialLinks } from './SocialLinks'
 
 export function InstitutionalBar() {
   return (
@@ -33,7 +34,16 @@ export function SiteHeader() {
       <InstitutionalBar />
       <div className="container identity-row">
         <Brand />
-        <MobileNav />
+        <div className="header-actions">
+          <SocialLinks className="desktop-socials" />
+          <MobileNav />
+        </div>
+      </div>
+      <div className="mobile-social-bar">
+        <div className="container">
+          <span className="social-bar-label">Социальные сети</span>
+          <SocialLinks />
+        </div>
       </div>
       <DesktopNav />
     </header>
@@ -149,7 +159,9 @@ export function SiteLayout() {
       </a>
       <SiteHeader />
       <main id="main-content" tabIndex={-1} ref={main}>
-        <Outlet />
+        <div className="route-content" key={location.pathname}>
+          <Outlet />
+        </div>
       </main>
     </>
   )

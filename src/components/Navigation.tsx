@@ -4,6 +4,7 @@ import { NavLink, useLocation } from 'react-router-dom'
 import { institution, primaryNavigation } from '../content/site'
 import type { NavigationItem } from '../content/site'
 import { Brand, PortalLink } from './ui'
+import { SocialLinks } from './SocialLinks'
 
 function DesktopDropdown({ item }: { item: NavigationItem }) {
   const [open, setOpen] = useState(false)
@@ -229,6 +230,7 @@ export function MobileNav() {
             <PortalLink className="mobile-portal" />
           </nav>
           <div className="mobile-menu-foot">
+            <SocialLinks />
             <span className="eyebrow">{institution.university}</span>
             <p>{institution.name}</p>
             <a

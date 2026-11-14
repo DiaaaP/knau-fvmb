@@ -112,6 +112,7 @@ try {
         await page.screenshot({
           path: `artifacts/v4-${width}-${route === '/' ? 'home' : route.replaceAll('/', '-').slice(1)}.png`,
           fullPage: true,
+          animations: 'disabled',
         })
       }
     }
@@ -241,6 +242,12 @@ try {
       '/applicants',
     ]) {
       await page.goto(`${base}#${route}`)
+      await page.evaluate(async () => {
+        await document.fonts.ready
+        await Promise.all(
+          document.getAnimations().map((animation) => animation.finished),
+        )
+      })
       const results = await new AxeBuilder({ page })
         .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
         .analyze()
@@ -274,6 +281,79 @@ try {
   assert.doesNotMatch(
     await page.locator('main').innerText(),
     /Госпожа Карина|Я бы предложил|Моя рекомендация/,
+  )
+  await page.setViewportSize({ width: 1440, height: 950 })
+  await page.goto(base)
+  const socials = page
+    .locator('.social-links')
+    .filter({ visible: true })
+    .first()
+  assert.equal(await socials.locator('a').count(), 3)
+  const expectedSocials = [
+    'https://wa.me/996556416541',
+    'https://www.instagram.com/fvm.knau/',
+    'https://www.facebook.com/share/1Fik1jCEYQ/?mibextid=wwXIfr',
+  ]
+  assert.deepEqual(
+    await socials
+      .locator('a')
+      .evaluateAll((links) => links.map((link) => link.getAttribute('href'))),
+    expectedSocials,
+  )
+  for (const link of await socials.locator('a').all()) {
+    assert.equal(await link.getAttribute('target'), '_blank')
+    assert.match(await link.getAttribute('rel'), /noopener/)
+    assert.match(await link.getAttribute('rel'), /noreferrer/)
+    const bounds = await link.boundingBox()
+    assert(bounds.width >= 44 && bounds.height >= 44, 'Social touch target')
+  }
+  await page.screenshot({
+    path: 'artifacts/socials-desktop.png',
+    clip: { x: 0, y: 0, width: 1440, height: 250 },
+    animations: 'disabled',
+  })
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.screenshot({
+    path: 'artifacts/socials-mobile.png',
+    clip: { x: 0, y: 0, width: 390, height: 370 },
+    animations: 'disabled',
+  })
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.reload()
+  assert.equal(
+    await page
+      .locator('.route-content')
+      .evaluate((element) => getComputedStyle(element).animationName),
+    'none',
+  )
+  const reducedSocial = page
+    .locator('.social-links')
+    .filter({ visible: true })
+    .first()
+    .locator('a')
+    .first()
+  assert.equal(
+    await reducedSocial.evaluate(
+      (element) => getComputedStyle(element).transitionDuration,
+    ),
+    '0s',
+  )
+  await reducedSocial.hover()
+  assert.equal(
+    await reducedSocial.evaluate(
+      (element) => getComputedStyle(element).transform,
+    ),
+    'none',
+  )
+  await opener.click()
+  assert.equal(
+    await dialog.evaluate((element) => getComputedStyle(element).animationName),
+    'none',
+  )
+  await page.keyboard.press('Escape')
+  await page.emulateMedia({ reducedMotion: 'no-preference' })
+  report.interactions.push(
+    'Approved social URLs, new-tab protections, 44px targets and reduced-motion support',
   )
   await page.goto(`${base}#/about/mission`)
   assert.equal(await page.locator('.document-status').count(), 0)

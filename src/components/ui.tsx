@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { ArrowUpRight, ExternalLink } from 'lucide-react'
+import { ArrowRight, ExternalLink, Landmark, ImageOff } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { institution } from '../content/site'
 
@@ -10,11 +10,12 @@ export function Brand({ compact = false }: { compact?: boolean }) {
       to="/"
       aria-label={institution.fullName + ' — главная'}
     >
-      <span className="university-wordmark" aria-hidden="true">
-        КНАУ<span>им. К.И. Скрябина</span>
+      <span className="brand-symbol" aria-hidden="true">
+        <Landmark strokeWidth={1.4} />
       </span>
-      <span className="brand-name">
-        {compact ? 'Факультет ветеринарной медицины' : institution.name}
+      <span>
+        <span className="brand-name">{compact ? 'ФВМ' : institution.name}</span>
+        <span className="brand-university">{institution.university}</span>
       </span>
     </Link>
   )
@@ -53,7 +54,7 @@ export function ArrowLink({
   return (
     <Link className={'arrow-link ' + className} to={to}>
       {children}
-      <ArrowUpRight size={18} aria-hidden="true" />
+      <ArrowRight size={17} aria-hidden="true" />
     </Link>
   )
 }
@@ -69,6 +70,20 @@ export function SectionHeading({
     <div className="section-heading">
       <h2>{title}</h2>
       {children}
+    </div>
+  )
+}
+
+export function FacultyImagePlaceholder() {
+  return (
+    <div
+      className="media-placeholder"
+      role="img"
+      aria-label="Фотография факультета пока не добавлена"
+    >
+      <ImageOff size={44} strokeWidth={1} aria-hidden="true" />
+      <span>Учебно-клиническая база факультета</span>
+      <small>Фотография будет добавлена</small>
     </div>
   )
 }

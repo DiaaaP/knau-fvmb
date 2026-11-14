@@ -12,6 +12,7 @@ const routes = [
   '/about/mission',
   '/about/deans-office',
   '/about/deans-office/anarbek-uulu-sovetbek',
+  '/industrial-council',
 ]
 const browser = await chromium.launch()
 const context = await browser.newContext()
@@ -33,6 +34,30 @@ try {
       await page.locator('h1').waitFor()
       await page.evaluate(() => document.fonts.ready)
       assert.equal(await page.locator('h1').count(), 1, `${width} ${route}: h1`)
+      assert.equal(
+        await page.locator('footer').count(),
+        0,
+        'Removed footer must stay absent',
+      )
+      assert.match(
+        await page
+          .locator('h1')
+          .evaluate((element) => getComputedStyle(element).fontFamily),
+        /Manrope/,
+        'Restore original heading font',
+      )
+      assert.equal(
+        await page
+          .locator('.institutional-inner p')
+          .evaluate((element) => getComputedStyle(element).textAlign),
+        'center',
+        'Centre ministry line',
+      )
+      assert.doesNotMatch(
+        await page.locator('main').innerText(),
+        /Фундаментальная и прикладная наука|Научная работа|Биотехнология и генетика/,
+        'Removed mission blocks must stay absent',
+      )
       assert.doesNotMatch(
         await page.locator('body').innerText(),
         /биотех|ФВМиБ/i,
@@ -81,7 +106,7 @@ try {
       report.layouts.push({ width, route, passed: true })
       if ([390, 1440].includes(width)) {
         await page.screenshot({
-          path: `artifacts/v2-${width}-${route === '/' ? 'home' : route.replaceAll('/', '-').slice(1)}.png`,
+          path: `artifacts/v3-${width}-${route === '/' ? 'home' : route.replaceAll('/', '-').slice(1)}.png`,
           fullPage: true,
         })
       }
@@ -167,7 +192,7 @@ try {
     await page.waitForURL(`**#${route}`)
   }
   report.interactions.push(
-    'All five route destinations followed through visible links',
+    'All six route destinations followed through visible links',
   )
 
   for (const width of [390, 1440]) {
@@ -176,6 +201,7 @@ try {
       '/',
       '/about/mission',
       '/about/deans-office/anarbek-uulu-sovetbek',
+      '/industrial-council',
     ]) {
       await page.goto(`${base}#${route}`)
       const results = await new AxeBuilder({ page })
@@ -197,6 +223,21 @@ try {
       )
     }
   }
+  await page.goto(`${base}#/industrial-council`)
+  assert.equal(await page.locator('.council-group').count(), 5)
+  assert.equal(await page.locator('.council-tasks>li').count(), 8)
+  assert.match(
+    await page.locator('#council-composition').textContent(),
+    /Предлагаемый состав/,
+  )
+  assert.match(
+    await page.locator('.council-purpose').textContent(),
+    /требованиям рынка труда/,
+  )
+  assert.doesNotMatch(
+    await page.locator('main').innerText(),
+    /Госпожа Карина|Я бы предложил|Моя рекомендация/,
+  )
   await page.goto(`${base}#/missing-page`)
   assert.match(await page.locator('h1').textContent(), /Такой страницы/)
   assert.deepEqual(errors, [], 'Browser errors')

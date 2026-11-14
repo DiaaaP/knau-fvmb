@@ -1,15 +1,16 @@
 :root {
   font-family: 'Inter', sans-serif;
-  color: #242e3a;
+  color: #17263a;
   background: #fff;
   font-synthesis: none;
-  --primary: #163f70;
-  --navy: #102f52;
+  --primary: #123a70;
+  --navy: #0b2545;
   --surface: #fff;
-  --section: #f5f6f7;
-  --border: #d8dee4;
-  --text: #242e3a;
-  --muted: #586574;
+  --section: #f5f8fc;
+  --border: #dfe6ee;
+  --text: #17263a;
+  --muted: #52647b;
   --focus: #1d4ed8;
-  --max-width: 1180px;
+  --radius: 6px;
+  --max-width: 1240px;
 }

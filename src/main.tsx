@@ -8,8 +8,13 @@ import '@fontsource/inter/latin-400.css'
 import '@fontsource/inter/latin-500.css'
 import '@fontsource/inter/latin-600.css'
 import '@fontsource/inter/latin-700.css'
+import '@fontsource/manrope/cyrillic-600.css'
+import '@fontsource/manrope/cyrillic-700.css'
+import '@fontsource/manrope/latin-600.css'
+import '@fontsource/manrope/latin-700.css'
 import './styles/tokens.css'
 import './styles/global.css'
+import './styles/adjustments.css'
 import App from './app/App'
 
 createRoot(document.getElementById('root')!).render(

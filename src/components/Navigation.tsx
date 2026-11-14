@@ -86,7 +86,7 @@ export function DesktopNav() {
             ),
           )}
         </nav>
-        <PortalLink className="portal-nav" />
+        <PortalLink className="button button-primary portal-nav" />
       </div>
     </div>
   )

@@ -1,5 +1,4 @@
 import { useLayoutEffect, useRef } from 'react'
-import { ExternalLink } from 'lucide-react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import {
   aboutNavigation,
@@ -7,9 +6,8 @@ import {
   primaryNavigation,
   staff,
 } from '../content/site'
-import { Brand, PortalLink } from './ui'
+import { Brand } from './ui'
 import { DesktopNav, MobileNav } from './Navigation'
-import { OfficeContacts } from './Sections'
 
 export function InstitutionalBar() {
   return (
@@ -29,50 +27,10 @@ export function SiteHeader() {
       <InstitutionalBar />
       <div className="container identity-row">
         <Brand />
-        <DesktopNav />
         <MobileNav />
       </div>
+      <DesktopNav />
     </header>
-  )
-}
-
-export function SiteFooter() {
-  return (
-    <footer className="site-footer">
-      <div className="container footer-grid">
-        <div>
-          <span className="footer-university">КНАУ</span>
-          <p>{institution.fullName}</p>
-          <small>Демонстрационная версия сайта</small>
-        </div>
-        <nav aria-label="Навигация в подвале">
-          <h2>Факультет</h2>
-          <Link to="/about">О факультете</Link>
-          <Link to="/about/mission">Миссия</Link>
-          <Link to="/about/deans-office">Деканат</Link>
-          <PortalLink />
-        </nav>
-        <div>
-          <h2>Связь с факультетом</h2>
-          <OfficeContacts />
-          <a
-            className="official-link"
-            href={institution.official}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Официальный сайт
-            <ExternalLink size={13} aria-hidden="true" />
-          </a>
-        </div>
-      </div>
-      <div className="container footer-bottom">
-        <span>
-          © {new Date().getFullYear()} {institution.university}
-        </span>
-        <span>Факультет ветеринарной медицины</span>
-      </div>
-    </footer>
   )
 }
 
@@ -159,7 +117,6 @@ export function SiteLayout() {
       <main id="main-content" tabIndex={-1} ref={main}>
         <Outlet />
       </main>
-      <SiteFooter />
     </>
   )
 }

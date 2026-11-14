@@ -7,8 +7,11 @@
 
 The latest user request overrides the historical brief below:
 - Visible identity: `Факультет ветеринарной медицины КНАУ им. К.И. Скрябина`; abbreviation `ФВМ`. Remove biotechnology from the identity.
-- Keep Home, About (Mission and Dean's Office), staff profiles, and the external AVN portal. Remove empty Applicants, Students, Departments and Contacts destinations from the site.
-- Use an editorial university layout: restrained serif headings, white/navy palette, thin rules and text lists. Avoid repeated card grids, empty news blocks, promotional slogans and oversized image placeholders.
+- Keep Home, About (Mission and Dean's Office), staff profiles, Industrial Council and the external AVN portal. Remove empty Applicants, Students, Departments and Contacts destinations from the site.
+- Restore the first prototype's Manrope headings, Inter body text, white/navy palette and original header/hero styling. The user explicitly rejected the subsequent serif redesign.
+- Centre the complete ministry line. Remove the large page footer entirely. Do not reintroduce prototype/disclaimer/navigation blocks at the bottom.
+- Remove the mission's fundamental/applied science and biotechnology/genetics blocks.
+- Add Industrial Council from the latest supplied text: purpose, five proposed participant categories and eight tasks. Present the composition as proposed categories, not an appointed membership list. Omit conversational framing such as «Госпожа Карина».
 - Source context: the user-shared ChatGPT conversation and original reference screenshots in Stitch. These were read, including the screenshot that identifies Анарбек уулу Советбек as заместитель декана, кандидат ветеринарных наук, исполняющий обязанности доцента. The qualifier `по учебной работе` is not supported by the original and must not be displayed.
 - The faculty's office phone and office email are legible in the original reference header. Personal staff mobile/email details and screenshots containing unrelated chat/device UI must not be published.
 - Keep the complete ministry line and functional, accessible mobile navigation.

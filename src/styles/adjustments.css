@@ -1,0 +1,565 @@
+/* The original Manrope/Inter design remains the base. These rules cover the
+   current page set, centred ministry line, and the industrial council. */
+.institutional-inner {
+  justify-content: center;
+}
+.institutional-inner p {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.65;
+}
+.faculty-overview-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  gap: 52px;
+  align-items: start;
+}
+.faculty-overview-grid > div > p {
+  max-width: 470px;
+}
+.faculty-links {
+  border-top: 1px solid var(--border);
+}
+.faculty-link {
+  display: flex;
+  align-items: start;
+  gap: 20px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--border);
+}
+.link-number {
+  color: var(--muted);
+  font-size: 11px;
+  padding-top: 5px;
+}
+.faculty-link > div {
+  flex: 1;
+  min-width: 0;
+}
+.faculty-link h3 {
+  font-size: 19px;
+  margin-bottom: 6px;
+}
+.faculty-link p {
+  color: var(--muted);
+  font-size: 13px;
+  margin: 0;
+}
+.faculty-link > svg {
+  margin-top: 3px;
+}
+.faculty-link:hover h3 {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.council-preview {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 48px;
+}
+.council-preview p {
+  color: var(--muted);
+  max-width: 750px;
+  margin-bottom: 0;
+}
+.council-preview > .button {
+  flex-shrink: 0;
+}
+.page-heading {
+  padding: 28px 0 32px;
+  border-bottom: 1px solid var(--border);
+}
+.page-heading h1 {
+  margin-bottom: 14px;
+}
+.section-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.7;
+  color: var(--muted);
+  margin: 0 0 16px;
+}
+.page-description {
+  color: var(--muted);
+  font-size: 16px;
+  max-width: 840px;
+  margin: 10px 0 0;
+}
+.document-grid {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 56px;
+  padding: 36px 0 60px;
+}
+.about-sidebar nav {
+  border-top: 1px solid var(--border);
+}
+.about-sidebar a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+  min-height: 48px;
+  padding: 10px 0;
+  color: var(--muted);
+}
+.about-sidebar a.active {
+  color: var(--primary);
+  font-weight: 600;
+}
+.document-body {
+  max-width: 850px;
+}
+.document-body > p {
+  max-width: 740px;
+}
+.document-lead {
+  font-size: 22px;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  line-height: 1.6;
+  color: var(--navy);
+}
+.document-body > .faculty-links {
+  margin-top: 28px;
+}
+.document-status,
+.document-note {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+.mission-quote {
+  margin: 18px 0;
+  padding: 24px;
+  border-left: 3px solid var(--primary);
+  background: var(--section);
+  border-radius: 0 6px 6px 0;
+  color: var(--primary);
+  font-family: 'Manrope', sans-serif;
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.7;
+}
+.content-heading {
+  margin: 32px 0 22px;
+  font-size: 24px;
+}
+.focus-list {
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0 24px;
+}
+.focus-list > div {
+  border-bottom: 1px solid var(--border);
+  padding: 22px 0;
+}
+.focus-list > div:last-child {
+  border-bottom: 0;
+}
+.focus-list dt {
+  display: flex;
+  gap: 18px;
+  align-items: start;
+  font-family: 'Manrope', sans-serif;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--navy);
+  font-weight: 600;
+}
+.focus-list dt span {
+  color: var(--muted);
+  font-size: 16px;
+  padding-top: 1px;
+}
+.focus-list dd {
+  margin: 10px 0 0 36px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+}
+.document-next {
+  display: flex;
+  gap: 26px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+.directory-row {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr) 180px;
+  gap: 32px;
+  align-items: start;
+  padding: 30px 0;
+  border-bottom: 1px solid var(--border);
+}
+.directory-label {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.8;
+  padding-top: 4px;
+}
+.directory-row h2 {
+  font-size: 24px;
+  margin-bottom: 14px;
+}
+.directory-row p {
+  margin-bottom: 8px;
+}
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 600;
+}
+.directory-row > .text-link {
+  justify-self: end;
+}
+.office-section {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 36px;
+  padding: 34px 0 55px;
+}
+.office-section h2 {
+  font-size: 24px;
+}
+.office-contacts {
+  font-style: normal;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 6px;
+  font-size: 14px;
+  line-height: 1.8;
+}
+.office-contacts > a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+}
+.office-contacts a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.profile-content {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr;
+  gap: 64px;
+  padding-top: 34px;
+}
+.profile-facts {
+  margin: 0;
+}
+.profile-facts > div {
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1fr);
+  gap: 22px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  line-height: 1.8;
+}
+.profile-facts dt {
+  color: var(--muted);
+  font-size: 12px;
+}
+.profile-facts dd {
+  margin: 0;
+}
+.profile-contact {
+  border-top: 3px solid var(--primary);
+  padding-top: 20px;
+}
+.profile-contact h2 {
+  font-size: 22px;
+}
+.profile-return {
+  padding: 30px 0 55px;
+}
+.not-found {
+  padding-top: 60px;
+  padding-bottom: 70px;
+}
+.council-page {
+  padding: 32px 0 55px;
+}
+.council-purpose {
+  padding: 28px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--primary);
+  border-radius: 6px;
+  background: var(--section);
+}
+.council-purpose h2 {
+  font-size: 23px;
+}
+.council-purpose p {
+  max-width: 1040px;
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.9;
+}
+.council-section {
+  margin-top: 38px;
+}
+.council-composition-note {
+  max-width: 950px;
+  margin-bottom: 28px;
+}
+.council-groups {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0 28px;
+}
+.council-group {
+  display: grid;
+  grid-template-columns: 35px minmax(0, 1fr);
+  gap: 22px;
+  border-bottom: 1px solid var(--border);
+  padding: 26px 0;
+}
+.council-group:last-child {
+  border-bottom: 0;
+}
+.council-number {
+  font-family: 'Manrope', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.council-group h3 {
+  font-size: 19px;
+  margin: 0 0 14px;
+}
+.council-group ul {
+  padding: 0 0 0 20px;
+  margin: 0;
+}
+.council-group li,
+.council-tasks li {
+  font-size: 14px;
+  line-height: 1.85;
+  padding-left: 4px;
+  margin-bottom: 8px;
+}
+.council-group li:last-child {
+  margin-bottom: 0;
+}
+.council-group li::marker,
+.council-tasks li::marker {
+  color: var(--primary);
+}
+.council-tasks {
+  margin: 0;
+  padding-left: 22px;
+  max-width: 1050px;
+}
+.council-tasks li {
+  padding-bottom: 8px;
+}
+.council-partnership {
+  background: var(--section);
+  padding: 28px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  margin-top: 30px;
+}
+.council-partnership h2 {
+  font-size: 23px;
+}
+.council-partnership p:last-child {
+  margin-bottom: 0;
+  font-weight: 500;
+  color: var(--primary);
+}
+@media (max-width: 1023px) {
+  .faculty-overview-grid {
+    gap: 32px;
+  }
+  .council-preview {
+    gap: 28px;
+  }
+  .document-grid {
+    grid-template-columns: 170px minmax(0, 1fr);
+    gap: 34px;
+  }
+  .directory-row {
+    grid-template-columns: 130px minmax(0, 1fr);
+    gap: 24px;
+  }
+  .directory-row > .text-link {
+    grid-column: 2;
+    justify-self: start;
+  }
+  .profile-content {
+    gap: 34px;
+  }
+  .profile-facts > div {
+    grid-template-columns: 130px minmax(0, 1fr);
+    gap: 18px;
+  }
+}
+@media (max-width: 767px) {
+  .institutional-inner p {
+    font-size: 10px;
+    line-height: 1.75;
+    margin: 12px 0;
+  }
+  .hero-grid {
+    gap: 28px;
+  }
+  .faculty-overview-grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  .faculty-link {
+    gap: 14px;
+  }
+  .faculty-link h3 {
+    font-size: 18px;
+  }
+  .council-preview {
+    flex-direction: column;
+    align-items: start;
+    gap: 20px;
+  }
+  .page-heading {
+    padding: 20px 0 26px;
+  }
+  .page-description {
+    font-size: 14px;
+  }
+  .document-grid {
+    grid-template-columns: 1fr;
+    gap: 26px;
+    padding: 26px 0 45px;
+  }
+  .about-sidebar > .section-label {
+    display: none;
+  }
+  .about-sidebar nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    border-top: 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .about-sidebar a {
+    border-bottom: 0;
+    font-size: 12px;
+  }
+  .about-sidebar a.active {
+    border-bottom: 2px solid var(--primary);
+  }
+  .about-sidebar a span {
+    display: none;
+  }
+  .document-lead {
+    font-size: 20px;
+  }
+  .mission-quote {
+    font-size: 18px;
+    padding: 20px;
+  }
+  .content-heading {
+    font-size: 23px;
+  }
+  .focus-list {
+    padding: 0 20px;
+  }
+  .focus-list dt {
+    gap: 14px;
+    font-size: 17px;
+  }
+  .focus-list dd {
+    margin-left: 32px;
+    font-size: 13px;
+  }
+  .directory-row {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 12px;
+    padding: 26px 0;
+  }
+  .directory-row h2 {
+    font-size: 22px;
+  }
+  .directory-row p {
+    font-size: 13px;
+  }
+  .directory-label {
+    font-size: 11px;
+  }
+  .office-section {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 28px 0 45px;
+  }
+  .office-section h2 {
+    font-size: 23px;
+  }
+  .profile-content {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding-top: 28px;
+  }
+  .profile-facts > div {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding: 18px 0;
+  }
+  .profile-return {
+    padding-bottom: 45px;
+  }
+  .council-page {
+    padding-top: 24px;
+  }
+  .council-purpose {
+    padding: 20px;
+  }
+  .council-purpose h2,
+  .council-partnership h2 {
+    font-size: 22px;
+  }
+  .council-purpose p {
+    font-size: 14px;
+  }
+  .council-section {
+    margin-top: 30px;
+  }
+  .council-groups {
+    padding: 0 18px;
+  }
+  .council-group {
+    grid-template-columns: 26px minmax(0, 1fr);
+    gap: 12px;
+    padding: 22px 0;
+  }
+  .council-number {
+    font-size: 18px;
+  }
+  .council-group h3 {
+    font-size: 17px;
+  }
+  .council-group li,
+  .council-tasks li {
+    font-size: 13px;
+    line-height: 1.8;
+  }
+  .council-partnership {
+    padding: 20px;
+  }
+}

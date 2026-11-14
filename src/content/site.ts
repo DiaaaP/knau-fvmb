@@ -14,6 +14,7 @@ export const institution = {
 export const primaryNavigation = [
   { title: 'Главная', to: '/' },
   { title: 'О нас', to: '/about' },
+  { title: 'Индустриальный совет', to: '/industrial-council' },
 ]
 export const aboutNavigation = [
   { title: 'О факультете', to: '/about' },
@@ -36,15 +37,15 @@ export const facultySections = [
 
 // Working text retained from the supplied design brief, never presented as an approved mission.
 export const missionDraft = {
-  text: 'Подготовка специалистов ветеринарной медицины, развитие ветеринарной науки и практики для защиты здоровья животных, человека и обеспечения продовольственной безопасности Кыргызской Республики.',
+  text: 'Подготовка специалистов ветеринарной медицины для защиты здоровья животных, человека и обеспечения продовольственной безопасности Кыргызской Республики.',
   areas: [
     {
       title: 'Образование',
       description: 'Подготовка специалистов ветеринарной медицины.',
     },
     {
-      title: 'Научная работа',
-      description: 'Развитие исследований в области ветеринарии.',
+      title: 'Служение обществу и биобезопасность',
+      description: 'Здоровье животных, человека и безопасность продовольствия.',
     },
     {
       title: 'Практическая подготовка',

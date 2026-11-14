@@ -24,7 +24,7 @@ export function OfficeContacts() {
   return (
     <address className="office-contacts">
       <a href={institution.phoneLink}>{institution.phone}</a>
-      <a href={'mailto:' + institution.email}>{institution.email}</a>
+      <span className="muted">{institution.emailPlaceholder}</span>
     </address>
   )
 }

@@ -10,7 +10,7 @@ export const institution = {
   official: 'https://fv.knau.kg/',
   phone: '+996 312 54-05-34',
   phoneLink: 'tel:+996312540534',
-  email: 't-ainura@bk.ru',
+  emailPlaceholder: 'Электронная почта уточняется',
 } as const
 
 export interface NavigationItem {

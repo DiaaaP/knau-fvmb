@@ -16,6 +16,7 @@ The latest user request overrides the historical brief below:
 - The latest user screenshots explicitly supply the faculty and deputy dean's displayed contact details and authorise copying original data. Transfer only the exact displayed professional contact fields. Crop only the original photographs/emblem; do not publish notification/chat/browser/device UI or fabricate faces/names.
 - The original site currently returns HTTP 403. Transcribe only complete, legible source text from screenshots. Unseen documents, rector's address, biographies and four department bodies remain incomplete; do not reconstruct them as official facts.
 - Keep the complete ministry line and functional, accessible mobile navigation.
+- The user clarified that the former office email belongs to a person who no longer works at the university. Do not restore it from old screenshots. Show plain text `Электронная почта уточняется` until a new address is supplied; do not invent an email or make the placeholder a mailto link.
 
 ## 1. Mission and source of truth
 Build a faithful, responsive, accessible frontend for the **Faculty of Veterinary Medicine and Biotechnology, KNAU named after K. I. Skryabin**, based on the **user-approved Google Stitch screens** accessible through the configured Stitch MCP server.

@@ -6,6 +6,12 @@ import Mission from '../pages/Mission'
 import DeanOffice from '../pages/DeanOffice'
 import StaffProfile from '../pages/StaffProfile'
 import IndustrialCouncil from '../pages/IndustrialCouncil'
+import {
+  DepartmentList,
+  DepartmentPage,
+  DepartmentHeadProfile,
+} from '../pages/Departments'
+import Resources from '../pages/Resources'
 import { NotFound } from '../pages/Placeholder'
 
 export default function App() {
@@ -19,6 +25,25 @@ export default function App() {
           <Route path="about/deans-office" element={<DeanOffice />} />
           <Route path="about/deans-office/:slug" element={<StaffProfile />} />
           <Route path="industrial-council" element={<IndustrialCouncil />} />
+          <Route
+            path="about/documents"
+            element={<Resources section="documents" />}
+          />
+          <Route
+            path="applicants"
+            element={<Resources section="applicants" />}
+          />
+          <Route
+            path="applicants/rector-address"
+            element={<Resources section="rector" />}
+          />
+          <Route path="students" element={<Resources section="students" />} />
+          <Route path="departments" element={<DepartmentList />} />
+          <Route path="departments/:slug" element={<DepartmentPage />} />
+          <Route
+            path="departments/infectious-diseases/keldibekova-zamira-saldybakasovna"
+            element={<DepartmentHeadProfile />}
+          />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

@@ -13,6 +13,18 @@ const routes = [
   '/about/deans-office',
   '/about/deans-office/anarbek-uulu-sovetbek',
   '/industrial-council',
+  '/about/deans-office/dean',
+  '/about/documents',
+  '/applicants',
+  '/applicants/rector-address',
+  '/students',
+  '/departments',
+  '/departments/infectious-diseases',
+  '/departments/veterinary-sanitary-expertise',
+  '/departments/internal-diseases',
+  '/departments/anatomy-physiology',
+  '/departments/obstetrics-surgery',
+  '/departments/infectious-diseases/keldibekova-zamira-saldybakasovna',
 ]
 const browser = await chromium.launch()
 const context = await browser.newContext()
@@ -63,15 +75,7 @@ try {
         /биотех|ФВМиБ/i,
         'Removed identity must not remain visible',
       )
-      assert.equal(
-        await page
-          .locator(
-            'a[href="#/applicants"], a[href="#/students"], a[href="#/departments"], a[href="#/contacts"]',
-          )
-          .count(),
-        0,
-        'Empty sections must not remain linked',
-      )
+      assert.equal(await page.locator('a[href="#/contacts"]').count(), 0)
       assert.equal(
         await page.locator('.institutional-bar p span').textContent(),
         ministry,
@@ -106,7 +110,7 @@ try {
       report.layouts.push({ width, route, passed: true })
       if ([390, 1440].includes(width)) {
         await page.screenshot({
-          path: `artifacts/v3-${width}-${route === '/' ? 'home' : route.replaceAll('/', '-').slice(1)}.png`,
+          path: `artifacts/v4-${width}-${route === '/' ? 'home' : route.replaceAll('/', '-').slice(1)}.png`,
           fullPage: true,
         })
       }
@@ -169,30 +173,61 @@ try {
     'Mobile menu: focus containment, submenu, route, reload, Escape, focus return',
   )
 
-  // Follow every internal route destination from its rendered anchor, not only direct URL navigation.
+  // Follow the restored sections from their actual parent pages.
   await page.setViewportSize({ width: 1440, height: 950 })
   for (const route of routes) {
-    await page.goto(`${base}#/`)
-    if (route.includes('anarbek')) {
-      await page
-        .locator('main')
-        .getByRole('link', { name: /Деканат/ })
-        .click()
-      await page
-        .locator('main')
-        .getByRole('link', { name: 'Профиль сотрудника' })
-        .click()
-    } else {
-      const anchor = page
-        .locator(`a[href="#${route}"]`)
-        .filter({ visible: true })
-        .first()
-      await anchor.click()
-    }
-    await page.waitForURL(`**#${route}`)
+    let parent = '/'
+    if (route.startsWith('/about/deans-office/')) parent = '/about/deans-office'
+    else if (route === '/about/documents') parent = '/about'
+    else if (route === '/applicants/rector-address') parent = '/applicants'
+    else if (route.includes('keldibekova'))
+      parent = '/departments/infectious-diseases'
+    else if (route.startsWith('/departments/')) parent = '/departments'
+    await page.goto(base + '#' + parent)
+    await page.locator('h1').waitFor()
+    await page
+      .locator('a[href="#' + route + '"]')
+      .filter({ visible: true })
+      .first()
+      .click()
+    await page.waitForURL('**#' + route)
   }
   report.interactions.push(
-    'All six route destinations followed through visible links',
+    'All restored routes followed through their real parent links',
+  )
+
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto(base)
+  await opener.click()
+  await dialog
+    .getByRole('button', { name: 'Разделы кафедр', exact: true })
+    .click()
+  const departmentMenu = dialog.locator('#mobile-departments-links')
+  assert.equal(await departmentMenu.locator('a').count(), 5)
+  await departmentMenu.locator('a').first().click()
+  await page.waitForURL('**#/departments/infectious-diseases')
+  const photoButton = page.getByRole('button', {
+    name: 'Открыть фотографию сотрудника 1',
+    exact: true,
+  })
+  await photoButton.click()
+  const photoDialog = page.getByRole('dialog', {
+    name: 'Фотография сотрудника',
+    exact: true,
+  })
+  assert(await photoDialog.isVisible())
+  await page.keyboard.press('Escape')
+  assert.equal(await photoDialog.isVisible(), false)
+  await page
+    .getByText('История становления и развития кафедры', { exact: true })
+    .click()
+  assert(
+    await page
+      .getByText('Исторические материалы раздела дополняются.', { exact: true })
+      .isVisible(),
+  )
+  report.interactions.push(
+    'Department mobile submenu, original-photo viewer, Escape and source accordions',
   )
 
   for (const width of [390, 1440]) {
@@ -202,6 +237,8 @@ try {
       '/about/mission',
       '/about/deans-office/anarbek-uulu-sovetbek',
       '/industrial-council',
+      '/departments/infectious-diseases',
+      '/applicants',
     ]) {
       await page.goto(`${base}#${route}`)
       const results = await new AxeBuilder({ page })
@@ -237,6 +274,12 @@ try {
   assert.doesNotMatch(
     await page.locator('main').innerText(),
     /Госпожа Карина|Я бы предложил|Моя рекомендация/,
+  )
+  await page.goto(`${base}#/about/mission`)
+  assert.equal(await page.locator('.document-status').count(), 0)
+  assert.match(
+    await page.locator('main').innerText(),
+    /Факультет обеспечивает получение обучающимися/,
   )
   await page.goto(`${base}#/missing-page`)
   assert.match(await page.locator('h1').textContent(), /Такой страницы/)

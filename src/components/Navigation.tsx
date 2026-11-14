@@ -1,14 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { ChevronDown, ExternalLink, Menu, X } from 'lucide-react'
 import { NavLink, useLocation } from 'react-router-dom'
-import {
-  aboutNavigation,
-  institution,
-  primaryNavigation,
-} from '../content/site'
+import { institution, primaryNavigation } from '../content/site'
+import type { NavigationItem } from '../content/site'
 import { Brand, PortalLink } from './ui'
 
-export function DesktopNav() {
+function DesktopDropdown({ item }: { item: NavigationItem }) {
   const [open, setOpen] = useState(false)
   const wrapper = useRef<HTMLDivElement>(null)
   const trigger = useRef<HTMLButtonElement>(null)
@@ -32,53 +29,64 @@ export function DesktopNav() {
     }
   }, [open])
   return (
+    <div
+      className="nav-dropdown"
+      ref={wrapper}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node))
+          setOpen(false)
+      }}
+    >
+      <div
+        className={
+          'nav-about ' + (location.pathname.startsWith(item.to) ? 'active' : '')
+        }
+      >
+        <NavLink to={item.to} onClick={() => setOpen(false)}>
+          {item.title}
+        </NavLink>
+        <button
+          ref={trigger}
+          aria-label={item.submenuLabel}
+          aria-expanded={open}
+          aria-controls={'desktop-' + item.id + '-links'}
+          onClick={() => setOpen(!open)}
+        >
+          <ChevronDown size={15} />
+        </button>
+      </div>
+      {open && (
+        <div
+          className={
+            'dropdown-panel ' +
+            (item.id === 'departments' ? 'dropdown-wide' : '')
+          }
+          id={'desktop-' + item.id + '-links'}
+        >
+          {item.children?.map((link) => (
+            <NavLink
+              end
+              to={link.to}
+              key={link.to}
+              onClick={() => setOpen(false)}
+            >
+              {link.title}
+            </NavLink>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export function DesktopNav() {
+  return (
     <div className="desktop-nav">
       <div className="container nav-row">
         <nav aria-label="Основная навигация">
           {primaryNavigation.map((item) =>
-            item.to === '/about' ? (
-              <div
-                className="nav-dropdown"
-                ref={wrapper}
-                key={item.to}
-                onBlur={(event) => {
-                  if (
-                    !event.currentTarget.contains(event.relatedTarget as Node)
-                  )
-                    setOpen(false)
-                }}
-              >
-                <div
-                  className={`nav-about ${location.pathname.startsWith('/about') ? 'active' : ''}`}
-                >
-                  <NavLink to={item.to} onClick={() => setOpen(false)}>
-                    О нас
-                  </NavLink>
-                  <button
-                    ref={trigger}
-                    aria-label="Разделы о факультете"
-                    aria-expanded={open}
-                    aria-controls="desktop-about-links"
-                    onClick={() => setOpen(!open)}
-                  >
-                    <ChevronDown size={15} />
-                  </button>
-                </div>
-                {open && (
-                  <div className="dropdown-panel" id="desktop-about-links">
-                    {aboutNavigation.map((link) => (
-                      <NavLink
-                        end
-                        to={link.to}
-                        key={link.to}
-                        onClick={() => setOpen(false)}
-                      >
-                        {link.title}
-                      </NavLink>
-                    ))}
-                  </div>
-                )}
-              </div>
+            item.children ? (
+              <DesktopDropdown item={item} key={item.to} />
             ) : (
               <NavLink to={item.to} end={item.to === '/'} key={item.to}>
                 {item.title}
@@ -96,7 +104,9 @@ export function MobileNav() {
   const dialog = useRef<HTMLDialogElement>(null)
   const opener = useRef<HTMLButtonElement>(null)
   const closer = useRef<HTMLButtonElement>(null)
-  const [expanded, setExpanded] = useState(true)
+  const [expanded, setExpanded] = useState<Record<string, boolean>>({
+    about: true,
+  })
   const close = () => dialog.current?.close()
   useEffect(
     () => () => {
@@ -132,8 +142,8 @@ export function MobileNav() {
               'a[href], button:not([disabled])',
             ),
           ).filter((item) => item.getClientRects().length > 0)
-          const first = items[0]
-          const last = items.at(-1)
+          const first = items[0],
+            last = items.at(-1)
           if (event.shiftKey && document.activeElement === first) {
             event.preventDefault()
             last?.focus()
@@ -173,33 +183,45 @@ export function MobileNav() {
             }}
           >
             {primaryNavigation.map((item) =>
-              item.to === '/about' ? (
+              item.children ? (
                 <div className="mobile-about" key={item.to}>
                   <div>
-                    <NavLink to="/about">О нас</NavLink>
+                    <NavLink to={item.to}>{item.title}</NavLink>
                     <button
                       className="icon-button"
-                      aria-label="Разделы о факультете"
-                      aria-expanded={expanded}
-                      aria-controls="mobile-about-links"
-                      onClick={() => setExpanded(!expanded)}
+                      aria-label={item.submenuLabel}
+                      aria-expanded={!!expanded[item.id!]}
+                      aria-controls={'mobile-' + item.id + '-links'}
+                      onClick={() =>
+                        setExpanded((current) => ({
+                          ...current,
+                          [item.id!]: !current[item.id!],
+                        }))
+                      }
                     >
                       <ChevronDown
-                        className={expanded ? 'rotated' : ''}
                         size={20}
+                        className={expanded[item.id!] ? 'rotated' : ''}
                       />
                     </button>
                   </div>
-                  <div id="mobile-about-links" hidden={!expanded}>
-                    {aboutNavigation.slice(1).map((link) => (
-                      <NavLink end key={link.to} to={link.to}>
+                  <div
+                    className="mobile-submenu"
+                    id={'mobile-' + item.id + '-links'}
+                    hidden={!expanded[item.id!]}
+                  >
+                    {(item.id === 'about'
+                      ? item.children.slice(1)
+                      : item.children
+                    ).map((link) => (
+                      <NavLink end to={link.to} key={link.to}>
                         {link.title}
                       </NavLink>
                     ))}
                   </div>
                 </div>
               ) : (
-                <NavLink end={item.to === '/'} key={item.to} to={item.to}>
+                <NavLink end={item.to === '/'} to={item.to} key={item.to}>
                   {item.title}
                 </NavLink>
               ),
@@ -208,7 +230,7 @@ export function MobileNav() {
           </nav>
           <div className="mobile-menu-foot">
             <span className="eyebrow">{institution.university}</span>
-            <p>Факультет ветеринарной медицины</p>
+            <p>{institution.name}</p>
             <a
               href={institution.official}
               target="_blank"

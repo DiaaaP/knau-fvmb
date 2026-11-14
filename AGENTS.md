@@ -7,13 +7,14 @@
 
 The latest user request overrides the historical brief below:
 - Visible identity: `Факультет ветеринарной медицины КНАУ им. К.И. Скрябина`; abbreviation `ФВМ`. Remove biotechnology from the identity.
-- Keep Home, About (Mission and Dean's Office), staff profiles, Industrial Council and the external AVN portal. Remove empty Applicants, Students, Departments and Contacts destinations from the site.
+- The latest request explicitly authorises transferring data, images and navigation from the original site/user screenshots. Restore About (Mission, Dean's Office, Documents), Applicants (Rector's Address), Students, Departments with five source-named departments, the AVN portal and Industrial Council. Do not invent unseen submenu contents.
 - Restore the first prototype's Manrope headings, Inter body text, white/navy palette and original header/hero styling. The user explicitly rejected the subsequent serif redesign.
 - Centre the complete ministry line. Remove the large page footer entirely. Do not reintroduce prototype/disclaimer/navigation blocks at the bottom.
 - Remove the mission's fundamental/applied science and biotechnology/genetics blocks.
 - Add Industrial Council from the latest supplied text: purpose, five proposed participant categories and eight tasks. Present the composition as proposed categories, not an appointed membership list. Omit conversational framing such as «Госпожа Карина».
 - Source context: the user-shared ChatGPT conversation and original reference screenshots in Stitch. These were read, including the screenshot that identifies Анарбек уулу Советбек as заместитель декана, кандидат ветеринарных наук, исполняющий обязанности доцента. The qualifier `по учебной работе` is not supported by the original and must not be displayed.
-- The faculty's office phone and office email are legible in the original reference header. Personal staff mobile/email details and screenshots containing unrelated chat/device UI must not be published.
+- The latest user screenshots explicitly supply the faculty and deputy dean's displayed contact details and authorise copying original data. Transfer only the exact displayed professional contact fields. Crop only the original photographs/emblem; do not publish notification/chat/browser/device UI or fabricate faces/names.
+- The original site currently returns HTTP 403. Transcribe only complete, legible source text from screenshots. Unseen documents, rector's address, biographies and four department bodies remain incomplete; do not reconstruct them as official facts.
 - Keep the complete ministry line and functional, accessible mobile navigation.
 
 ## 1. Mission and source of truth

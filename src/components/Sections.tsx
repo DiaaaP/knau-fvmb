@@ -1,6 +1,7 @@
 import { ArrowUpRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { dean, facultySections, institution, staff } from '../content/site'
+import { asset } from '../content/assets'
 
 export function FacultyLinks() {
   return (
@@ -33,23 +34,45 @@ export function StaffDirectory() {
     <div className="staff-directory">
       <article className="directory-row">
         <span className="directory-label">Руководитель</span>
-        <div>
-          <h2>{dean.role}</h2>
-          <p>{dean.degree}</p>
-          <p className="muted">{dean.facultyReference}</p>
+        <div className="directory-details">
+          <Link to={dean.route}>
+            <img
+              className="directory-portrait"
+              src={asset(dean.image)}
+              alt={dean.role}
+              width={589}
+              height={393}
+            />
+          </Link>
+          <div>
+            <h2>{dean.role}</h2>
+            <p>{dean.degree}</p>
+            <p className="muted">{dean.facultyReference}</p>
+          </div>
         </div>
-        <a className="text-link" href={institution.phoneLink}>
-          Приёмная
+        <Link className="text-link" to={dean.route}>
+          Подробнее о декане
           <ArrowUpRight size={17} aria-hidden="true" />
-        </a>
+        </Link>
       </article>
       <article className="directory-row">
         <span className="directory-label">{staff.role}</span>
-        <div>
-          <h2>
-            <Link to={staff.route}>{staff.name}</Link>
-          </h2>
-          <p>{staff.degree}, исполняющий обязанности доцента</p>
+        <div className="directory-details">
+          <Link to={staff.route}>
+            <img
+              className="directory-portrait"
+              src={asset(staff.image)}
+              alt={staff.name}
+              width={537}
+              height={366}
+            />
+          </Link>
+          <div>
+            <h2>
+              <Link to={staff.route}>{staff.name}</Link>
+            </h2>
+            <p>{staff.degree}, исполняющий обязанности доцента</p>
+          </div>
         </div>
         <Link className="text-link" to={staff.route}>
           Профиль сотрудника

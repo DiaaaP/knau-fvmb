@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react'
-import { ArrowRight, ExternalLink, Landmark, ImageOff } from 'lucide-react'
+import { ArrowRight, ExternalLink } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { institution } from '../content/site'
+import { asset } from '../content/assets'
 
 export function Brand({ compact = false }: { compact?: boolean }) {
   return (
@@ -11,7 +12,12 @@ export function Brand({ compact = false }: { compact?: boolean }) {
       aria-label={institution.fullName + ' — главная'}
     >
       <span className="brand-symbol" aria-hidden="true">
-        <Landmark strokeWidth={1.4} />
+        <img
+          src={asset('faculty-emblem.webp')}
+          alt="Эмблема факультета"
+          width={44}
+          height={44}
+        />
       </span>
       <span>
         <span className="brand-name">{compact ? 'ФВМ' : institution.name}</span>
@@ -70,20 +76,6 @@ export function SectionHeading({
     <div className="section-heading">
       <h2>{title}</h2>
       {children}
-    </div>
-  )
-}
-
-export function FacultyImagePlaceholder() {
-  return (
-    <div
-      className="media-placeholder"
-      role="img"
-      aria-label="Фотография факультета пока не добавлена"
-    >
-      <ImageOff size={44} strokeWidth={1} aria-hidden="true" />
-      <span>Учебно-клиническая база факультета</span>
-      <small>Фотография будет добавлена</small>
     </div>
   )
 }

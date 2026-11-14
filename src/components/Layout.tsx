@@ -5,7 +5,13 @@ import {
   institution,
   primaryNavigation,
   staff,
+  dean,
 } from '../content/site'
+import {
+  departments,
+  departmentPath,
+  departmentHead,
+} from '../content/departments'
 import { Brand } from './ui'
 import { DesktopNav, MobileNav } from './Navigation'
 
@@ -58,6 +64,23 @@ export function Breadcrumbs({
             <Link to="/about/deans-office">Деканат</Link>
           </li>
         )}
+        {pathname.startsWith('/departments/') && (
+          <li>
+            <Link to="/departments">Кафедры</Link>
+          </li>
+        )}
+        {pathname === departmentHead.route && (
+          <li>
+            <Link to="/departments/infectious-diseases">
+              Кафедра инфекционных и инвазионных болезней животных
+            </Link>
+          </li>
+        )}
+        {pathname.startsWith('/applicants/') && (
+          <li>
+            <Link to="/applicants">Абитуриентам</Link>
+          </li>
+        )}
         <li aria-current="page">{title}</li>
       </ol>
     </nav>
@@ -90,9 +113,20 @@ export function SiteLayout() {
         ? 'Главная'
         : location.pathname === staff.route
           ? staff.name
-          : [...primaryNavigation, ...aboutNavigation].find(
-              (item) => item.to === location.pathname,
-            )?.title || 'Страница'
+          : location.pathname === dean.route
+            ? dean.role
+            : location.pathname === departmentHead.route
+              ? departmentHead.name
+              : departments.find(
+                  (department) =>
+                    departmentPath(department) === location.pathname,
+                )?.name ||
+                [
+                  ...primaryNavigation,
+                  ...primaryNavigation.flatMap((item) => item.children || []),
+                  ...aboutNavigation,
+                ].find((item) => item.to === location.pathname)?.title ||
+                'Страница'
     document.title = title + ' — ФВМ ' + institution.university
     if (previousPath.current !== location.pathname) {
       window.scrollTo(0, 0)

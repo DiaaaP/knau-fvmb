@@ -1,12 +1,10 @@
 import { GraduationCap } from 'lucide-react'
 import { institution } from '../content/site'
 import { FacultyLinks } from '../components/Sections'
-import {
-  ArrowLink,
-  FacultyImagePlaceholder,
-  PortalLink,
-} from '../components/ui'
+import { ArrowLink, PortalLink } from '../components/ui'
 import { council } from '../content/council'
+import { asset } from '../content/assets'
+import { departments, departmentPath } from '../content/departments'
 
 export default function Home() {
   return (
@@ -47,7 +45,13 @@ export default function Home() {
             </div>
           </div>
           <figure className="hero-media">
-            <FacultyImagePlaceholder />
+            <img
+              className="hero-photo"
+              src={asset('faculty-laboratory.webp')}
+              alt="Практическое занятие в лаборатории факультета"
+              width={576}
+              height={383}
+            />
             <figcaption>
               <GraduationCap size={23} aria-hidden="true" />
               <div>
@@ -69,6 +73,21 @@ export default function Home() {
             <ArrowLink to="/about">Подробнее о факультете</ArrowLink>
           </div>
           <FacultyLinks />
+        </div>
+      </section>
+      <section className="section">
+        <div className="container">
+          <h2>Кафедры факультета</h2>
+          <ul className="department-links">
+            {departments.map((department) => (
+              <li key={department.slug}>
+                <ArrowLink to={departmentPath(department)}>
+                  {department.name}
+                </ArrowLink>
+              </li>
+            ))}
+          </ul>
+          <ArrowLink to="/departments">Все кафедры</ArrowLink>
         </div>
       </section>
       <section className="section">

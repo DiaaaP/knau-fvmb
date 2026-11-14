@@ -12,10 +12,6 @@ const routes = [
   '/about/mission',
   '/about/deans-office',
   '/about/deans-office/anarbek-uulu-sovetbek',
-  '/applicants',
-  '/students',
-  '/departments',
-  '/contacts',
 ]
 const browser = await chromium.launch()
 const context = await browser.newContext()
@@ -37,6 +33,20 @@ try {
       await page.locator('h1').waitFor()
       await page.evaluate(() => document.fonts.ready)
       assert.equal(await page.locator('h1').count(), 1, `${width} ${route}: h1`)
+      assert.doesNotMatch(
+        await page.locator('body').innerText(),
+        /биотех|ФВМиБ/i,
+        'Removed identity must not remain visible',
+      )
+      assert.equal(
+        await page
+          .locator(
+            'a[href="#/applicants"], a[href="#/students"], a[href="#/departments"], a[href="#/contacts"]',
+          )
+          .count(),
+        0,
+        'Empty sections must not remain linked',
+      )
       assert.equal(
         await page.locator('.institutional-bar p span').textContent(),
         ministry,
@@ -69,14 +79,9 @@ try {
       const invalid = await page.locator('a[href="#"], a:not([href])').count()
       assert.equal(invalid, 0, `${route}: dead anchors`)
       report.layouts.push({ width, route, passed: true })
-      if (
-        [390, 1440].includes(width) &&
-        !['/applicants', '/students', '/departments', '/contacts'].includes(
-          route,
-        )
-      ) {
+      if ([390, 1440].includes(width)) {
         await page.screenshot({
-          path: `artifacts/${width}-${route === '/' ? 'home' : route.replaceAll('/', '-').slice(1)}.png`,
+          path: `artifacts/v2-${width}-${route === '/' ? 'home' : route.replaceAll('/', '-').slice(1)}.png`,
           fullPage: true,
         })
       }
@@ -143,12 +148,16 @@ try {
   await page.setViewportSize({ width: 1440, height: 950 })
   for (const route of routes) {
     await page.goto(`${base}#/`)
-    if (route.includes('anarbek'))
+    if (route.includes('anarbek')) {
+      await page
+        .locator('main')
+        .getByRole('link', { name: /Деканат/ })
+        .click()
       await page
         .locator('main')
         .getByRole('link', { name: 'Профиль сотрудника' })
         .click()
-    else {
+    } else {
       const anchor = page
         .locator(`a[href="#${route}"]`)
         .filter({ visible: true })
@@ -158,7 +167,7 @@ try {
     await page.waitForURL(`**#${route}`)
   }
   report.interactions.push(
-    'All nine route destinations followed through visible links',
+    'All five route destinations followed through visible links',
   )
 
   for (const width of [390, 1440]) {

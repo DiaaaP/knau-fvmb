@@ -86,7 +86,7 @@ export function DesktopNav() {
             ),
           )}
         </nav>
-        <PortalLink className="button button-primary portal-nav" />
+        <PortalLink className="portal-nav" />
       </div>
     </div>
   )
@@ -208,7 +208,7 @@ export function MobileNav() {
           </nav>
           <div className="mobile-menu-foot">
             <span className="eyebrow">{institution.university}</span>
-            <p>Факультет ветеринарной медицины и биотехнологии</p>
+            <p>Факультет ветеринарной медицины</p>
             <a
               href={institution.official}
               target="_blank"

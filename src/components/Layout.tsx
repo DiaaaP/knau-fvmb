@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef } from 'react'
-import { ExternalLink, Landmark } from 'lucide-react'
-import { Link, Outlet, useLocation } from 'react-router-dom'
+import { ExternalLink } from 'lucide-react'
+import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import {
   aboutNavigation,
   institution,
@@ -9,19 +9,15 @@ import {
 } from '../content/site'
 import { Brand, PortalLink } from './ui'
 import { DesktopNav, MobileNav } from './Navigation'
+import { OfficeContacts } from './Sections'
 
 export function InstitutionalBar() {
   return (
     <div className="institutional-bar">
       <div className="container institutional-inner">
         <p>
-          <Landmark size={15} aria-hidden="true" />
           <span>{institution.ministry}</span>
         </p>
-        <a href="https://knau.kg" target="_blank" rel="noopener noreferrer">
-          Сайт КНАУ
-          <ExternalLink size={13} />
-        </a>
       </div>
     </div>
   )
@@ -33,13 +29,9 @@ export function SiteHeader() {
       <InstitutionalBar />
       <div className="container identity-row">
         <Brand />
-        <span className="header-note">
-          Ветеринарная медицина
-          <br />и биотехнология
-        </span>
+        <DesktopNav />
         <MobileNav />
       </div>
-      <DesktopNav />
     </header>
   )
 }
@@ -49,38 +41,36 @@ export function SiteFooter() {
     <footer className="site-footer">
       <div className="container footer-grid">
         <div>
-          <Brand />
-          <p>{institution.prototype}</p>
-          <span className="footer-label">Демонстрационная версия</span>
+          <span className="footer-university">КНАУ</span>
+          <p>{institution.fullName}</p>
+          <small>Демонстрационная версия сайта</small>
         </div>
         <nav aria-label="Навигация в подвале">
-          <h2>Навигация</h2>
-          {primaryNavigation.map((link) => (
-            <Link key={link.to} to={link.to}>
-              {link.title}
-            </Link>
-          ))}
+          <h2>Факультет</h2>
+          <Link to="/about">О факультете</Link>
+          <Link to="/about/mission">Миссия</Link>
+          <Link to="/about/deans-office">Деканат</Link>
+          <PortalLink />
         </nav>
         <div>
-          <h2>Полезные ресурсы</h2>
-          <PortalLink />
+          <h2>Связь с факультетом</h2>
+          <OfficeContacts />
           <a
+            className="official-link"
             href={institution.official}
             target="_blank"
             rel="noopener noreferrer"
           >
-            Официальный сайт факультета
-            <ExternalLink size={14} />
+            Официальный сайт
+            <ExternalLink size={13} aria-hidden="true" />
           </a>
-          <p>Контакты и график приёма будут добавлены после подтверждения.</p>
-          <Link to="/contacts">Контактная информация →</Link>
         </div>
       </div>
       <div className="container footer-bottom">
         <span>
           © {new Date().getFullYear()} {institution.university}
         </span>
-        <span>Прототип ФВМиБ</span>
+        <span>Факультет ветеринарной медицины</span>
       </div>
     </footer>
   )
@@ -119,20 +109,15 @@ export function Breadcrumbs({
 export function AboutSidebar() {
   return (
     <aside className="about-sidebar">
-      <span className="eyebrow">О факультете</span>
+      <span className="section-label">О факультете</span>
       <nav aria-label="Разделы о факультете">
         {aboutNavigation.map((link) => (
-          <Link key={link.to} to={link.to}>
+          <NavLink end key={link.to} to={link.to}>
             {link.title}
-            <span aria-hidden="true">›</span>
-          </Link>
+            <span aria-hidden="true">↗</span>
+          </NavLink>
         ))}
       </nav>
-      <div className="sidebar-portal">
-        <h3>Образовательный портал</h3>
-        <p>Переход к системе AVN КНАУ</p>
-        <PortalLink className="arrow-link">Открыть AVN</PortalLink>
-      </div>
     </aside>
   )
 }
@@ -150,7 +135,7 @@ export function SiteLayout() {
           : [...primaryNavigation, ...aboutNavigation].find(
               (item) => item.to === location.pathname,
             )?.title || 'Страница'
-    document.title = `${title} — ФВМиБ ${institution.university}`
+    document.title = title + ' — ФВМ ' + institution.university
     if (previousPath.current !== location.pathname) {
       window.scrollTo(0, 0)
       main.current?.focus({ preventScroll: true })

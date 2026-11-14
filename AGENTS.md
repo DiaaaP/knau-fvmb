@@ -3,6 +3,16 @@
 > Repository-wide instructions for Codex and any other coding agent.
 > Project status: **design-to-code prototype**, not the faculty's official production website.
 
+## Current user-approved revision
+
+The latest user request overrides the historical brief below:
+- Visible identity: `Факультет ветеринарной медицины КНАУ им. К.И. Скрябина`; abbreviation `ФВМ`. Remove biotechnology from the identity.
+- Keep Home, About (Mission and Dean's Office), staff profiles, and the external AVN portal. Remove empty Applicants, Students, Departments and Contacts destinations from the site.
+- Use an editorial university layout: restrained serif headings, white/navy palette, thin rules and text lists. Avoid repeated card grids, empty news blocks, promotional slogans and oversized image placeholders.
+- Source context: the user-shared ChatGPT conversation and original reference screenshots in Stitch. These were read, including the screenshot that identifies Анарбек уулу Советбек as заместитель декана, кандидат ветеринарных наук, исполняющий обязанности доцента. The qualifier `по учебной работе` is not supported by the original and must not be displayed.
+- The faculty's office phone and office email are legible in the original reference header. Personal staff mobile/email details and screenshots containing unrelated chat/device UI must not be published.
+- Keep the complete ministry line and functional, accessible mobile navigation.
+
 ## 1. Mission and source of truth
 Build a faithful, responsive, accessible frontend for the **Faculty of Veterinary Medicine and Biotechnology, KNAU named after K. I. Skryabin**, based on the **user-approved Google Stitch screens** accessible through the configured Stitch MCP server.
 

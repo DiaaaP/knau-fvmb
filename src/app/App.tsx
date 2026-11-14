@@ -5,8 +5,7 @@ import About from '../pages/About'
 import Mission from '../pages/Mission'
 import DeanOffice from '../pages/DeanOffice'
 import StaffProfile from '../pages/StaffProfile'
-import Placeholder, { NotFound } from '../pages/Placeholder'
-import { placeholders } from '../content/site'
+import { NotFound } from '../pages/Placeholder'
 
 export default function App() {
   return (
@@ -18,9 +17,6 @@ export default function App() {
           <Route path="about/mission" element={<Mission />} />
           <Route path="about/deans-office" element={<DeanOffice />} />
           <Route path="about/deans-office/:slug" element={<StaffProfile />} />
-          {Object.keys(placeholders).map((path) => (
-            <Route key={path} path={path} element={<Placeholder />} />
-          ))}
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

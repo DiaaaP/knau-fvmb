@@ -26,6 +26,9 @@ const routes = [
   '/departments/obstetrics-surgery',
   '/departments/infectious-diseases/keldibekova-zamira-saldybakasovna',
 ]
+const departmentRoutes = routes.filter((path) =>
+  /^\/departments\/[^/]+$/.test(path),
+)
 const browser = await chromium.launch()
 const context = await browser.newContext()
 const page = await context.newPage()
@@ -219,16 +222,26 @@ try {
   assert(await photoDialog.isVisible())
   await page.keyboard.press('Escape')
   assert.equal(await photoDialog.isVisible(), false)
-  await page
-    .getByText('История становления и развития кафедры', { exact: true })
-    .click()
-  assert(
-    await page
-      .getByText('Исторические материалы раздела дополняются.', { exact: true })
-      .isVisible(),
-  )
   report.interactions.push(
-    'Department mobile submenu, original-photo viewer, Escape and source accordions',
+    'Department mobile submenu, original-photo viewer and Escape',
+  )
+
+  for (const route of departmentRoutes) {
+    await page.goto(`${base}#${route}`)
+    const topics = page.getByRole('region', {
+      name: 'Темы подготовки',
+      exact: true,
+    })
+    assert(await topics.isVisible())
+    assert((await topics.getByRole('listitem').count()) > 0)
+    const source = page.getByRole('link', {
+      name: /Отчёт о программе «Ветеринария», 2022/,
+    })
+    assert(await source.isVisible())
+    assert.match(await source.getAttribute('href'), /^https:\/\/daqar\.org\//)
+  }
+  report.interactions.push(
+    'All five departments show study topics and a dated source',
   )
 
   for (const width of [390, 1440]) {
@@ -238,7 +251,7 @@ try {
       '/about/mission',
       '/about/deans-office/anarbek-uulu-sovetbek',
       '/industrial-council',
-      '/departments/infectious-diseases',
+      ...departmentRoutes,
       '/applicants',
     ]) {
       await page.goto(`${base}#${route}`)

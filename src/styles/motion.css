@@ -164,9 +164,6 @@
 .mobile-about .icon-button svg {
   transition: transform 180ms ease;
 }
-.source-accordions details[open] > p {
-  animation: dropdown-enter 160ms ease-out both;
-}
 
 .desktop-nav nav > a,
 .nav-about {

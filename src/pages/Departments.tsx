@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, ExternalLink } from 'lucide-react'
 import { Breadcrumbs } from '../components/Layout'
 import { OfficeContacts } from '../components/Sections'
 import { ArrowLink } from '../components/ui'
@@ -9,6 +9,7 @@ import {
   departmentHead,
 } from '../content/departments'
 import { asset } from '../content/assets'
+import { admissions } from '../content/admissions'
 import { PhotoGallery } from '../components/PhotoGallery'
 import { NotFound } from './Placeholder'
 
@@ -40,7 +41,15 @@ export function DepartmentPage() {
   const { slug } = useParams()
   const department = departments.find((item) => item.slug === slug)
   if (!department) return <NotFound />
-  const { head, gallery, mission, studySections } = department
+  const { head, gallery, overview, topics, reportNote, publication } =
+    department
+  const sources = [
+    {
+      label: 'Отчёт о программе «Ветеринария», 2022 (PDF)',
+      href: admissions.programSource,
+    },
+    ...(publication ? [publication] : []),
+  ]
   return (
     <div className="container">
       <Breadcrumbs title={department.name} />
@@ -60,14 +69,20 @@ export function DepartmentPage() {
         )}
         <section className="department-section">
           <h2>О кафедре</h2>
-          {mission ? (
-            mission.map((paragraph) => <p key={paragraph}>{paragraph}</p>)
-          ) : (
-            <p className="muted">
-              Описание кафедры, её состав и учебные дисциплины будут добавлены
-              после уточнения.
-            </p>
-          )}
+          {overview.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+        </section>
+        <section
+          className="department-section"
+          aria-labelledby="department-topics"
+        >
+          <h2 id="department-topics">Темы подготовки</h2>
+          <ul>
+            {topics.map((topic) => (
+              <li key={topic}>{topic}</li>
+            ))}
+          </ul>
         </section>
         {head && (
           <section className="department-section">
@@ -91,19 +106,26 @@ export function DepartmentPage() {
             {gallery && <PhotoGallery images={gallery} />}
           </section>
         )}
-        {studySections && (
-          <section className="department-section">
-            <h2>Направления и специальности подготовки</h2>
-            <div className="source-accordions">
-              {studySections.map(({ title, description }) => (
-                <details key={title}>
-                  <summary>{title}</summary>
-                  <p>{description}</p>
-                </details>
-              ))}
-            </div>
-          </section>
-        )}
+        <section className="department-section">
+          <h2>Материалы о кафедре</h2>
+          <p>{reportNote}</p>
+          <ul className="resource-links">
+            {sources.map(({ label, href }) => (
+              <li key={href}>
+                <a
+                  className="source-link"
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {label}
+                  <ExternalLink size={14} aria-hidden="true" />
+                  <span className="sr-only"> (откроется в новой вкладке)</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
         <section className="department-section resource-panel department-contact">
           <h2>Вопросы о кафедре</h2>
           <ArrowLink to="/about/deans-office">Контакты деканата</ArrowLink>

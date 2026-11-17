@@ -2,6 +2,7 @@ import { ArrowUpRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { dean, facultySections, institution, staff } from '../content/site'
 import { asset } from '../content/assets'
+import { usePublishedContent } from '../content/PublishedContent'
 
 export function FacultyLinks() {
   return (
@@ -21,10 +22,15 @@ export function FacultyLinks() {
 }
 
 export function OfficeContacts() {
+  const { officeEmail, officePhone } = usePublishedContent()
   return (
     <address className="office-contacts">
-      <a href={institution.phoneLink}>{institution.phone}</a>
-      <span className="muted">{institution.emailPlaceholder}</span>
+      <a href={`tel:${officePhone.replace(/[^+\d]/g, '')}`}>{officePhone}</a>
+      {officeEmail ? (
+        <a href={`mailto:${encodeURI(officeEmail)}`}>{officeEmail}</a>
+      ) : (
+        <span className="muted">{institution.emailPlaceholder}</span>
+      )}
     </address>
   )
 }

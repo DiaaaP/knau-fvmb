@@ -17,9 +17,12 @@ import './styles/global.css'
 import './styles/adjustments.css'
 import './styles/motion.css'
 import App from './app/App'
+import { PublishedContentProvider } from './content/PublishedContent'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <PublishedContentProvider>
+      <App />
+    </PublishedContentProvider>
   </StrictMode>,
 )

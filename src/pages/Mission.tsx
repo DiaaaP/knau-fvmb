@@ -1,9 +1,11 @@
 import { AboutSidebar, Breadcrumbs } from '../components/Layout'
 import { ArrowLink } from '../components/ui'
-import { facultyMission } from '../content/site'
+import { usePublishedContent } from '../content/PublishedContent'
+import { missionParagraphs } from '../content/managed'
 import { asset } from '../content/assets'
 
 export default function Mission() {
+  const { missionMotto, missionBody } = usePublishedContent()
   return (
     <div className="container">
       <Breadcrumbs title="Миссия" />
@@ -14,9 +16,7 @@ export default function Mission() {
       <div className="document-grid">
         <AboutSidebar />
         <article className="document-body">
-          <blockquote className="mission-quote">
-            {facultyMission.motto}
-          </blockquote>
+          <blockquote className="mission-quote">{missionMotto}</blockquote>
           <img
             className="content-photo"
             src={asset('faculty-laboratory.webp')}
@@ -24,8 +24,8 @@ export default function Mission() {
             width={576}
             height={383}
           />
-          {facultyMission.paragraphs.map((paragraph) => (
-            <p className="source-paragraph" key={paragraph}>
+          {missionParagraphs(missionBody).map((paragraph, index) => (
+            <p className="source-paragraph" key={index}>
               {paragraph}
             </p>
           ))}

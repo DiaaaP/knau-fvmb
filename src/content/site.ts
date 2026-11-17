@@ -1,15 +1,13 @@
 import { departments, departmentPath } from './departments'
+import { ministryName } from './managed'
 
 export const institution = {
-  ministry:
-    'МИНИСТЕРСТВО НАУКИ, ВЫСШЕГО ОБРАЗОВАНИЯ И ИННОВАЦИЙ КЫРГЫЗСКОЙ РЕСПУБЛИКИ',
+  ministry: ministryName,
   name: 'Факультет ветеринарной медицины',
   university: 'КНАУ им. К.И. Скрябина',
   fullName: 'Факультет ветеринарной медицины КНАУ им. К.И. Скрябина',
   portal: 'https://avn.knau.kg',
   official: 'https://fv.knau.kg/',
-  phone: '+996 312 54-05-34',
-  phoneLink: 'tel:+996312540534',
   emailPlaceholder: 'Электронная почта уточняется',
 } as const
 
@@ -72,14 +70,6 @@ export const primaryNavigation: NavigationItem[] = [
   },
   { title: 'Индустриальный совет', to: '/industrial-council' },
 ]
-
-// Only the fully readable faculty paragraph is transcribed; clipped text is not reconstructed.
-export const facultyMission = {
-  motto: 'Человеческая медицина хранит человека, а ветеринарная — человечество',
-  paragraphs: [
-    'Факультет обеспечивает получение обучающимися качественного высшего ветеринарного образования, формирует профессиональные компетенции, практические навыки, научно-исследовательскую культуру и способность к непрерывному профессиональному развитию.',
-  ],
-} as const
 
 // Role and qualifications are legible in the original screenshots uploaded to Stitch.
 // The user has now explicitly authorised transferring the displayed original contact details.

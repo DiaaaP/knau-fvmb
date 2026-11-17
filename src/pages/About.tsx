@@ -1,10 +1,13 @@
 import { AboutSidebar, Breadcrumbs } from '../components/Layout'
 import { FacultyLinks } from '../components/Sections'
-import { institution, facultyMission } from '../content/site'
+import { institution } from '../content/site'
+import { usePublishedContent } from '../content/PublishedContent'
+import { missionParagraphs } from '../content/managed'
 import { departments, departmentPath } from '../content/departments'
 import { ArrowLink } from '../components/ui'
 
 export default function About() {
+  const { missionBody } = usePublishedContent()
   return (
     <div className="container">
       <Breadcrumbs title="О факультете" />
@@ -16,8 +19,8 @@ export default function About() {
         <AboutSidebar />
         <article className="document-body">
           <p className="document-lead">{institution.fullName}.</p>
-          {facultyMission.paragraphs.map((text) => (
-            <p key={text}>{text}</p>
+          {missionParagraphs(missionBody).map((text, index) => (
+            <p key={index}>{text}</p>
           ))}
           <FacultyLinks />
           <h2 className="content-heading">Кафедры факультета</h2>

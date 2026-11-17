@@ -195,7 +195,6 @@ export function MobileNav() {
                       aria-controls={'mobile-' + item.id + '-links'}
                       onClick={() =>
                         setExpanded((current) => ({
-                          ...current,
                           [item.id!]: !current[item.id!],
                         }))
                       }

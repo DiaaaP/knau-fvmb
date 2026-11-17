@@ -24,18 +24,22 @@
   max-width: calc(100vw - 40px);
 }
 .mobile-submenu {
-  padding: 0 0 10px 18px;
+  padding: 0 4px 0 12px;
   border-left: 2px solid var(--border);
-  margin: 0 0 12px 7px;
+  margin: 0 0 10px 3px;
 }
 .mobile-submenu a {
   display: flex;
   min-height: 44px;
   align-items: center;
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.7;
-  padding: 7px 0;
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+  padding: 8px 0;
+}
+.mobile-submenu a + a {
+  border-top: 1px solid var(--border);
 }
 .directory-details {
   display: grid;
@@ -101,16 +105,14 @@
 }
 .department-directory-row {
   display: grid;
-  grid-template-columns: 32px minmax(0, 1fr) 20px;
+  grid-template-columns: minmax(0, 1fr) 18px;
   gap: 24px;
-  align-items: start;
+  align-items: center;
   padding: 26px 0;
   border-bottom: 1px solid var(--border);
 }
-.department-directory-row > span {
-  color: var(--muted);
-  font-size: 12px;
-  padding-top: 5px;
+.department-directory-row > svg {
+  color: var(--primary);
 }
 .department-directory-row h2 {
   margin: 0;
@@ -127,6 +129,10 @@
 }
 .department-section {
   margin-top: 36px;
+}
+.department-content > .department-section:first-child,
+.department-contact h2 {
+  margin-top: 0;
 }
 .department-section > p {
   max-width: 1000px;
@@ -238,6 +244,59 @@
 .resource-content h2 {
   font-size: 24px;
 }
+.document-downloads,
+.resource-links {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.resource-links .arrow-link {
+  min-height: 44px;
+}
+.document-downloads li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 20px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.document-downloads li > span {
+  flex: 1 1 240px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.admissions-program dl {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 32px;
+  margin-block: 10px 14px;
+}
+.admissions-program dt {
+  color: var(--muted);
+  font-size: 13px;
+}
+.admissions-program dd {
+  margin: 3px 0 0;
+  font-weight: 600;
+}
+.source-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  color: var(--primary);
+  font-size: 13px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.office-contacts a,
+.hero-description,
+.mission-quote,
+.document-body p {
+  overflow-wrap: anywhere;
+}
 .resource-panel {
   padding: 26px;
   border: 1px solid var(--border);
@@ -254,6 +313,12 @@
   }
 }
 @media (max-width: 767px) {
+  .resource-page .page-heading {
+    padding-block: 24px;
+  }
+  .resource-page .resource-content {
+    padding-top: 24px;
+  }
   .hero-photo {
     height: 230px;
   }
@@ -284,7 +349,7 @@
   }
   .department-directory-row {
     gap: 15px;
-    grid-template-columns: 25px minmax(0, 1fr) 18px;
+    padding: 18px 0;
   }
   .department-directory-row h2 {
     font-size: 18px;
@@ -544,12 +609,18 @@
 }
 .office-section {
   display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 36px;
-  padding: 34px 0 55px;
+  grid-template-columns: minmax(220px, 1fr) 2fr;
+  align-items: start;
+  gap: 12px 36px;
+  padding: 22px 24px;
+  margin: 28px 0 8px;
+  background: var(--section);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
 }
 .office-section h2 {
   font-size: 24px;
+  margin: 5px 0 0;
 }
 .office-contacts {
   font-style: normal;
@@ -821,8 +892,8 @@
   }
   .office-section {
     grid-template-columns: 1fr;
-    gap: 8px;
-    padding: 28px 0 45px;
+    gap: 4px;
+    padding: 16px;
   }
   .office-section h2 {
     font-size: 23px;

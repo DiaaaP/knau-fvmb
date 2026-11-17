@@ -13,11 +13,14 @@ export default function DeanOffice() {
           Руководство факультета ветеринарной медицины
         </p>
       </div>
-      <StaffDirectory />
-      <section className="office-section">
-        <h2>Приёмная факультета</h2>
+      <section
+        className="office-section"
+        aria-labelledby="dean-office-contacts"
+      >
+        <h2 id="dean-office-contacts">Контакты деканата</h2>
         <OfficeContacts />
       </section>
+      <StaffDirectory />
     </div>
   )
 }

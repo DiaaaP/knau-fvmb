@@ -1149,18 +1149,6 @@ main:focus,
 .mobile-about .icon-button {
   border: 0;
 }
-.mobile-about #mobile-about-links {
-  padding: 0 0 10px 18px;
-  border-left: 2px solid var(--border);
-  margin: 0 0 12px 7px;
-}
-.mobile-about #mobile-about-links a {
-  display: flex;
-  min-height: 44px;
-  align-items: center;
-  font-size: 13px;
-  color: var(--muted);
-}
 .rotated {
   transform: rotate(180deg);
 }

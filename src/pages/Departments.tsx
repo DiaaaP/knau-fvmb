@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
+import { ArrowRight } from 'lucide-react'
 import { Breadcrumbs } from '../components/Layout'
 import { OfficeContacts } from '../components/Sections'
 import { ArrowLink } from '../components/ui'
@@ -20,15 +21,14 @@ export function DepartmentList() {
         <h1>Кафедры</h1>
       </div>
       <div className="department-directory">
-        {departments.map((department, index) => (
+        {departments.map((department) => (
           <Link
             className="department-directory-row"
             key={department.slug}
             to={departmentPath(department)}
           >
-            <span>0{index + 1}</span>
             <h2>{department.name}</h2>
-            <span aria-hidden="true">→</span>
+            <ArrowRight size={18} aria-hidden="true" />
           </Link>
         ))}
       </div>
@@ -40,6 +40,7 @@ export function DepartmentPage() {
   const { slug } = useParams()
   const department = departments.find((item) => item.slug === slug)
   if (!department) return <NotFound />
+  const { head, gallery, mission, studySections } = department
   return (
     <div className="container">
       <Breadcrumbs title={department.name} />
@@ -52,71 +53,60 @@ export function DepartmentPage() {
           <img
             className="department-team-photo"
             src={asset(department.image)}
-            alt="Коллектив кафедры инфекционных и инвазионных болезней животных"
+            alt={`Коллектив — ${department.name}`}
             width={1150}
             height={255}
           />
         )}
-        {department.mission ? (
-          <>
-            <section className="department-section">
-              <h2>Миссия кафедры</h2>
-              {department.mission.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
-            </section>
-            <section className="department-section">
-              <h2>Направления и специальности подготовки</h2>
-              <div className="source-accordions">
-                <details>
-                  <summary>История становления и развития кафедры</summary>
-                  <p>Исторические материалы раздела дополняются.</p>
-                </details>
-                <details>
-                  <summary>Профильные направления подготовки</summary>
-                  <p>
-                    Подробная информация об образовательных направлениях
-                    дополняется.
-                  </p>
-                </details>
-              </div>
-            </section>
-            <section className="department-section">
-              <h2>Состав кафедры</h2>
-              <article className="department-head">
-                <Link to={departmentHead.route}>
-                  <img
-                    src={asset(departmentHead.image)}
-                    alt={departmentHead.name}
-                    width={285}
-                    height={357}
-                    loading="lazy"
-                  />
-                </Link>
-                <div>
-                  <h3>{departmentHead.name}</h3>
-                  <p>{departmentHead.role}</p>
-                  <ArrowLink to={departmentHead.route}>
-                    Подробнее о заведующей
-                  </ArrowLink>
-                </div>
-              </article>
-              <PhotoGallery />
-            </section>
-            <section className="department-section">
-              <h2>Международное сотрудничество кафедры</h2>
-              <p className="muted">Материалы раздела дополняются.</p>
-            </section>
-          </>
-        ) : (
+        <section className="department-section">
+          <h2>О кафедре</h2>
+          {mission ? (
+            mission.map((paragraph) => <p key={paragraph}>{paragraph}</p>)
+          ) : (
+            <p className="muted">
+              Описание кафедры, её состав и учебные дисциплины будут добавлены
+              после уточнения.
+            </p>
+          )}
+        </section>
+        {head && (
           <section className="department-section">
-            <h2>О кафедре</h2>
-            <p className="muted">Подробные материалы кафедры дополняются.</p>
+            <h2>Состав кафедры</h2>
+            <article className="department-head">
+              <Link to={head.route}>
+                <img
+                  src={asset(head.image)}
+                  alt={head.name}
+                  width={285}
+                  height={357}
+                  loading="lazy"
+                />
+              </Link>
+              <div>
+                <h3>{head.name}</h3>
+                <p>{head.role}</p>
+                <ArrowLink to={head.route}>Подробнее о заведующей</ArrowLink>
+              </div>
+            </article>
+            {gallery && <PhotoGallery images={gallery} />}
           </section>
         )}
-        <section className="department-section">
-          <h2>Связь с факультетом</h2>
-          <OfficeContacts />
+        {studySections && (
+          <section className="department-section">
+            <h2>Направления и специальности подготовки</h2>
+            <div className="source-accordions">
+              {studySections.map(({ title, description }) => (
+                <details key={title}>
+                  <summary>{title}</summary>
+                  <p>{description}</p>
+                </details>
+              ))}
+            </div>
+          </section>
+        )}
+        <section className="department-section resource-panel department-contact">
+          <h2>Вопросы о кафедре</h2>
+          <ArrowLink to="/about/deans-office">Контакты деканата</ArrowLink>
         </section>
         <div className="document-next">
           <ArrowLink to="/departments">Все кафедры</ArrowLink>

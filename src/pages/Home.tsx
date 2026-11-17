@@ -5,8 +5,10 @@ import { ArrowLink, PortalLink } from '../components/ui'
 import { council } from '../content/council'
 import { asset } from '../content/assets'
 import { departments, departmentPath } from '../content/departments'
+import { usePublishedContent } from '../content/PublishedContent'
 
 export default function Home() {
+  const { homeIntro } = usePublishedContent()
   return (
     <>
       <section className="home-hero section">
@@ -17,12 +19,10 @@ export default function Home() {
             </span>
             <h1>{institution.name}</h1>
             <p className="hero-university">{institution.university}</p>
-            <p className="hero-description">
-              Ветеринарное образование и клиническая практика
-            </p>
+            <p className="hero-description">{homeIntro}</p>
             <div className="button-row">
-              <ArrowLink className="button button-primary" to="/about">
-                О факультете
+              <ArrowLink className="button button-primary" to="/applicants">
+                Как поступить
               </ArrowLink>
               <PortalLink className="button button-outline">
                 <GraduationCap size={19} aria-hidden="true" />

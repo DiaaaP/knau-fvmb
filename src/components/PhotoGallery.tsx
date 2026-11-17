@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { X } from 'lucide-react'
 import { asset } from '../content/assets'
-import { departmentGallery } from '../content/departments'
 
-export function PhotoGallery() {
+export function PhotoGallery({ images }: { images: readonly string[] }) {
   const [selected, setSelected] = useState<string | null>(null)
   const dialog = useRef<HTMLDialogElement>(null)
   const closer = useRef<HTMLButtonElement>(null)
@@ -17,7 +16,7 @@ export function PhotoGallery() {
   return (
     <>
       <div className="staff-photo-gallery">
-        {departmentGallery.map((image, index) => (
+        {images.map((image, index) => (
           <button
             key={image}
             aria-label={'Открыть фотографию сотрудника ' + (index + 1)}
@@ -28,7 +27,7 @@ export function PhotoGallery() {
           >
             <img
               src={asset(image)}
-              alt="Сотрудник кафедры инфекционных и инвазионных болезней животных"
+              alt="Сотрудник кафедры"
               width={310}
               height={386}
               loading="lazy"

@@ -199,6 +199,22 @@
 }
 
 @media (max-width: 1023px) {
+  .site-header .identity-row {
+    min-height: 64px;
+    gap: 12px;
+    padding-block: 8px;
+  }
+  .mobile-dialog-header {
+    padding: 12px 16px;
+  }
+  .mobile-dialog nav {
+    padding: 6px 16px 16px;
+  }
+  .mobile-dialog nav > a,
+  .mobile-about > div:first-child,
+  .mobile-about > div:first-child > a {
+    min-height: 48px;
+  }
   .desktop-socials {
     display: none;
   }
@@ -214,8 +230,7 @@
     justify-content: space-between;
     align-items: center;
     gap: 16px;
-    padding-top: 9px;
-    padding-bottom: 9px;
+    padding-block: 0;
   }
   .social-bar-label {
     color: var(--muted);
